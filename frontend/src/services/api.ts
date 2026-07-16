@@ -12,8 +12,15 @@ export const registerLogoutCallback = (cb: () => void) => {
   logoutCallback = cb;
 };
 
+// VITE_API_URL is baked into the frontend at build time. Set it in Vercel to
+// the public URL of the deployed backend, for example
+// https://real-estate-api.example.com/api.
+const configuredApiUrl = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '');
+const apiBaseUrl = configuredApiUrl ||
+  (import.meta.env.DEV ? 'http://localhost:5001/api' : '/api');
+
 const api = axios.create({
-  baseURL: (import.meta.env.VITE_API_URL as string) || 'http://localhost:5001/api',
+  baseURL: apiBaseUrl,
   withCredentials: true,
 });
 

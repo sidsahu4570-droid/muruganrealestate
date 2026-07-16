@@ -25,6 +25,16 @@ import { seedDatabaseIfEmpty } from './utils/autoSeeder';
 const app = express();
 const server = http.createServer(app);
 
+// CLIENT_URL accepts a comma-separated list so the local app and the deployed
+// frontend can both access the API (for example: http://localhost:5173,https://site.vercel.app).
+const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173')
+  .split(',')
+  .map((url) => url.trim().replace(/\/$/, ''))
+  .filter(Boolean);
+
+const isAllowedOrigin = (origin?: string) =>
+  !origin || allowedOrigins.includes(origin.replace(/\/$/, ''));
+
 // Initialize Socket.io
 initSocket(server);
 
@@ -34,7 +44,10 @@ app.use(helmet());
 // CORS Configuration
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin(origin, callback) {
+      if (isAllowedOrigin(origin)) return callback(null, true);
+      return callback(new Error(`Origin ${origin} is not allowed by CORS`));
+    },
     credentials: true,
   })
 );

@@ -58,6 +58,27 @@ docker-compose up --build
 - Frontend will be available at: http://localhost:5173
 - Backend API will be available at: http://localhost:5000
 
+## Deploying the frontend on Vercel
+
+The Vercel site is only the frontend. Properties, blogs, settings, and all
+admin content live in MongoDB and are served by the Express backend, so that
+backend must be deployed to a public HTTPS host (such as Render, Railway, or
+Fly.io) with a persistent MongoDB database.
+
+Set these environment variables before redeploying:
+
+| Where | Variable | Value |
+| --- | --- | --- |
+| Vercel (frontend) | `VITE_API_URL` | `https://your-backend-domain.example/api` |
+| Backend host | `MONGO_URI` | Your production MongoDB connection string |
+| Backend host | `CLIENT_URL` | `https://your-project.vercel.app` (add any custom domain, comma-separated) |
+| Backend host | `NODE_ENV` | `production` |
+| Backend host | `JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET` | Secure, unique production secrets |
+
+Then redeploy the backend and use **Redeploy** in Vercel. Vite reads
+`VITE_API_URL` only while building, so changing that value without a new
+Vercel deployment will not update the live site.
+
 ## Database Schemas (Mongoose)
 
 Phase 1 registers and schemas for:
