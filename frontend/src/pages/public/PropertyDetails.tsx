@@ -11,7 +11,6 @@ import { Badge } from '../../components/ui/Badge';
 import { Input } from '../../components/ui/Input';
 import { useRecentlyViewed } from '../../context/RecentlyViewedContext';
 import { useToast } from '../../context/ToastContext';
-import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
 import {
   MapPin,
   Compass,
@@ -92,12 +91,10 @@ export const PropertyDetails: React.FC = () => {
 
   const mortgageValues = calculateMortgage();
 
-  // Recharts Pie Dataset
-  const chartData = [
-    { name: 'Principal & Interest', value: mortgageValues.principalInterest, color: '#C9A227' },
-    { name: 'Property Taxes', value: mortgageValues.taxes, color: '#0F172A' },
-    { name: 'Home Insurance', value: mortgageValues.insurance, color: '#1E293B' },
-  ];
+  const totalValue = mortgageValues.principalInterest + mortgageValues.taxes + mortgageValues.insurance || 1;
+  const piPct = Math.max(0, Math.min(100, (mortgageValues.principalInterest / totalValue) * 100));
+  const taxPct = Math.max(0, Math.min(100, (mortgageValues.taxes / totalValue) * 100));
+  const insPct = Math.max(0, Math.min(100, (mortgageValues.insurance / totalValue) * 100));
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -332,27 +329,48 @@ export const PropertyDetails: React.FC = () => {
                 </div>
               </div>
 
-              {/* Visualization pie chart */}
+              {/* Visualization donut chart */}
               <div className="flex flex-col items-center">
-                <div className="h-48 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={chartData}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={50}
-                        outerRadius={70}
-                        paddingAngle={3}
-                        dataKey="value"
-                      >
-                        {chartData.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.color} />
-                        ))}
-                      </Pie>
-                      <Tooltip formatter={(value) => `₹${value}`} />
-                    </PieChart>
-                  </ResponsiveContainer>
+                <div className="h-48 relative flex items-center justify-center">
+                  <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
+                    {/* Circle 1: Principal & Interest */}
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      fill="transparent"
+                      stroke="#C9A227"
+                      strokeWidth="10"
+                      strokeDasharray={`${piPct} ${100 - piPct}`}
+                      strokeDashoffset="0"
+                    />
+                    {/* Circle 2: Taxes */}
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      fill="transparent"
+                      stroke="#0F172A"
+                      strokeWidth="10"
+                      strokeDasharray={`${taxPct} ${100 - taxPct}`}
+                      strokeDashoffset={-piPct}
+                    />
+                    {/* Circle 3: Insurance */}
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      fill="transparent"
+                      stroke="#1E293B"
+                      strokeWidth="10"
+                      strokeDasharray={`${insPct} ${100 - insPct}`}
+                      strokeDashoffset={-(piPct + taxPct)}
+                    />
+                  </svg>
+                  <div className="absolute flex flex-col items-center">
+                    <span className="text-[9px] uppercase font-bold text-slate-400">Total</span>
+                    <span className="text-xs font-bold text-slate-900 dark:text-white">₹{totalValue.toLocaleString()}</span>
+                  </div>
                 </div>
                 <div className="text-center space-y-1">
                   <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Estimated Monthly</span>

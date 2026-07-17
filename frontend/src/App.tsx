@@ -8,6 +8,7 @@ import { WishlistProvider } from './context/WishlistContext';
 import { CompareProvider } from './context/CompareContext';
 import { RecentlyViewedProvider } from './context/RecentlyViewedContext';
 import { AppRoutes } from './routes';
+import { ScrollToTop } from './components/ScrollToTop';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,6 +24,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
         <BrowserRouter>
+          <ScrollToTop />
           <ToastProvider>
             <DarkModeProvider>
               <AuthProvider>
