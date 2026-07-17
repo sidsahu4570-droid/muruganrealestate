@@ -27,7 +27,7 @@ export const Gallery: React.FC = () => {
       <div className="max-w-3xl mx-auto text-center space-y-4">
         <span className="text-xs uppercase tracking-widest text-accent font-semibold">Visual Portfolio</span>
         <h1 className="text-3xl lg:text-5xl font-serif font-bold text-slate-900 dark:text-white">
-          Aurelia Image Gallery
+          Murugan Real Estate Image Gallery
         </h1>
         <p className="text-sm text-slate-500 max-w-xl mx-auto leading-relaxed">
           Step inside our curated collection of architectural designs, luxury pool decks, and bespoke interiors.

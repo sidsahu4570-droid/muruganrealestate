@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import api from '../../services/api';
 import { SEO } from '../../components/SEO';
+import { DEMO_BLOGS } from '../../services/demoData';
 import { Card } from '../../components/ui/Card';
 import { Input } from '../../components/ui/Input';
 import { Spinner } from '../../components/ui/Spinner';
@@ -23,17 +24,30 @@ export const Blog: React.FC = () => {
     },
   });
 
+  // Client-side filtering fallback for DEMO_BLOGS
+  let blogsList = data?.blogs || [];
+  if (blogsList.length === 0 && !isLoading) {
+    let filtered = [...DEMO_BLOGS];
+    if (search) {
+      filtered = filtered.filter(b => b.title.toLowerCase().includes(search.toLowerCase()) || b.content.toLowerCase().includes(search.toLowerCase()));
+    }
+    if (selectedTag) {
+      filtered = filtered.filter(b => b.title.toLowerCase().includes(selectedTag.toLowerCase()) || b.content.toLowerCase().includes(selectedTag.toLowerCase()));
+    }
+    blogsList = filtered;
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-6 py-12 lg:py-20 space-y-12">
       <SEO
         title="Bespoke Estates Journal"
-        description="Browse Aurelia Real Estate reports, penthouse interior guides, and southern Florida beach markets analyses."
+        description="Browse Murugan Real Estate reports, penthouse interior guides, and southern Florida beach markets analyses."
       />
 
       <div className="max-w-3xl mx-auto text-center space-y-4">
         <span className="text-xs uppercase tracking-widest text-accent font-semibold">Our Journal</span>
         <h1 className="text-3xl lg:text-5xl font-serif font-bold text-slate-900 dark:text-white">
-          Aurelia Market Insights
+          Murugan Market Insights
         </h1>
         <p className="text-sm text-slate-500 max-w-xl mx-auto leading-relaxed">
           Expert analysis on high-net-worth real estate cycles, design inspirations, and luxury investments.
@@ -44,13 +58,13 @@ export const Blog: React.FC = () => {
         <div className="lg:col-span-3 space-y-6">
           {isLoading ? (
             <Spinner />
-          ) : data?.blogs?.length === 0 ? (
+          ) : blogsList.length === 0 ? (
             <div className="text-slate-500 text-center py-20 border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl">
               No articles found matching your query.
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {data?.blogs?.map((blog: any) => (
+              {blogsList.map((blog: any) => (
                 <Card key={blog._id} hoverEffect className="flex flex-col h-full overflow-hidden p-0">
                   <div className="h-56 relative overflow-hidden">
                     <img src={blog.coverImage} alt={blog.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />

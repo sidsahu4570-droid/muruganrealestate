@@ -18,7 +18,7 @@ export const SEO: React.FC<SEOProps> = ({
   type = 'website',
   schema,
 }) => {
-  const siteName = 'Aurelia Luxury Estates';
+  const siteName = 'Murugan Real Estate';
   const fullTitle = `${title} | ${siteName}`;
 
   return (

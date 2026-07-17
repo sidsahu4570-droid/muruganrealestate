@@ -49,27 +49,25 @@ export const SettingsMock: React.FC = () => {
   const settings = data?.settings;
 
   useEffect(() => {
-    if (settings) {
-      setSiteName(settings.siteName || '');
-      setSiteLogo(settings.siteLogo || '');
-      setFavicon(settings.favicon || '');
-      setContactEmail(settings.contactEmail || '');
-      setContactPhone(settings.contactPhone || '');
-      setWhatsappNumber(settings.whatsappNumber || '');
-      setGoogleAnalytics(settings.googleAnalytics || '');
-      setGoogleTagManager(settings.googleTagManager || '');
+    setSiteName(settings?.siteName || 'Murugan Real Estate');
+    setSiteLogo(settings?.siteLogo || '');
+    setFavicon(settings?.favicon || '');
+    setContactEmail(settings?.contactEmail || 'concierge@muruganrealestate.com');
+    setContactPhone(settings?.contactPhone || '9892685194');
+    setWhatsappNumber(settings?.whatsappNumber || '9892685194');
+    setGoogleAnalytics(settings?.googleAnalytics || '');
+    setGoogleTagManager(settings?.googleTagManager || '');
 
-      setFacebook(settings.socialLinks?.facebook || '');
-      setTwitter(settings.socialLinks?.twitter || '');
-      setInstagram(settings.socialLinks?.instagram || '');
-      setLinkedin(settings.socialLinks?.linkedin || '');
+    setFacebook(settings?.socialLinks?.facebook || 'https://facebook.com/muruganrealestate');
+    setTwitter(settings?.socialLinks?.twitter || 'https://twitter.com/muruganrealestate');
+    setInstagram(settings?.socialLinks?.instagram || 'https://instagram.com/muruganrealestate');
+    setLinkedin(settings?.socialLinks?.linkedin || 'https://linkedin.com/company/muruganrealestate');
 
-      setHost(settings.emailSettings?.host || '');
-      setPort(settings.emailSettings?.port || 2525);
-      setUser(settings.emailSettings?.user || '');
-      setPass(settings.emailSettings?.pass || '');
-      setFrom(settings.emailSettings?.from || '');
-    }
+    setHost(settings?.emailSettings?.host || '');
+    setPort(settings?.emailSettings?.port || 2525);
+    setUser(settings?.emailSettings?.user || '');
+    setPass(settings?.emailSettings?.pass || '');
+    setFrom(settings?.emailSettings?.from || 'noreply@muruganrealestate.com');
   }, [settings]);
 
   // Mutation to update settings
@@ -154,7 +152,7 @@ export const SettingsMock: React.FC = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <Input label="Office Phone" type="text" value={contactPhone} onChange={(e: any) => setContactPhone(e.target.value)} />
-                  <Input label="WhatsApp Line" type="text" placeholder="15557898455" value={whatsappNumber} onChange={(e: any) => setWhatsappNumber(e.target.value)} />
+                  <Input label="WhatsApp Line" type="text" placeholder="9892685194" value={whatsappNumber} onChange={(e: any) => setWhatsappNumber(e.target.value)} />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <Input label="Site Logo URL" type="text" value={siteLogo} onChange={(e: any) => setSiteLogo(e.target.value)} />
@@ -170,7 +168,7 @@ export const SettingsMock: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <Input label="Host Name" type="text" placeholder="smtp.mailtrap.io" value={host} onChange={(e: any) => setHost(e.target.value)} />
                   <Input label="Port Number" type="number" value={port} onChange={(e: any) => setPort(Number(e.target.value))} />
-                  <Input label="Sender Email Address" type="text" placeholder="noreply@aurelia.com" value={from} onChange={(e: any) => setFrom(e.target.value)} />
+                  <Input label="Sender Email Address" type="text" placeholder="noreply@muruganrealestate.com" value={from} onChange={(e: any) => setFrom(e.target.value)} />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <Input label="User Name" type="text" value={user} onChange={(e: any) => setUser(e.target.value)} />

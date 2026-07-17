@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import api from '../../services/api';
 import { SEO } from '../../components/SEO';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
-import { Spinner } from '../../components/ui/Spinner';
 import {
   Search,
   MapPin,
@@ -16,7 +13,9 @@ import {
   Award,
   Globe2,
   Calendar,
+  Star,
 } from 'lucide-react';
+import { DEMO_PROPERTIES, DEMO_TESTIMONIALS, DEMO_BLOGS } from '../../services/demoData';
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -25,24 +24,6 @@ export const Home: React.FC = () => {
   const [city, setCity] = useState('');
   const [category, setCategory] = useState('');
   const [type, setType] = useState('sale');
-
-  // Queries for featured properties
-  const { data: propertiesData, isLoading: propertiesLoading } = useQuery({
-    queryKey: ['featuredProperties'],
-    queryFn: async () => {
-      const res = await api.get('/properties?limit=3');
-      return res.data;
-    },
-  });
-
-  // Queries for latest blogs
-  const { data: blogsData, isLoading: blogsLoading } = useQuery({
-    queryKey: ['latestBlogs'],
-    queryFn: async () => {
-      const res = await api.get('/blogs');
-      return res.data;
-    },
-  });
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,7 +38,7 @@ export const Home: React.FC = () => {
     <div className="space-y-16 lg:space-y-24 pb-16">
       <SEO
         title="Luxury Real Estate Portfolio"
-        description="Aurelia curates the standard of premium living. Browse our waterfront estates, metropolis penthouses, and luxury villas."
+        description="Murugan Real Estate curates the standard of premium living. Browse our waterfront estates, metropolis penthouses, and luxury villas."
       />
 
       {/* 1. Immersive Hero Section */}
@@ -82,7 +63,7 @@ export const Home: React.FC = () => {
             <span className="text-accent italic font-normal">Luxury Living</span>
           </h1>
           <p className="text-sm md:text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
-            Aurelia Luxury Estates curates high-net-worth real estate listings, waterfront villas, and bespoke penthouse investments globally.
+            Murugan Real Estate curates high-net-worth real estate listings, waterfront villas, and bespoke penthouse investments globally.
           </p>
 
           {/* Advanced Search Form */}
@@ -162,58 +143,60 @@ export const Home: React.FC = () => {
           </Link>
         </div>
 
-        {propertiesLoading ? (
-          <Spinner />
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {propertiesData?.properties?.map((prop: any) => (
-              <Card key={prop._id} hoverEffect className="flex flex-col h-full overflow-hidden p-0">
-                <div className="h-64 relative overflow-hidden">
-                  <img
-                    src={prop.images[0]}
-                    alt={prop.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 right-4 px-3 py-1 bg-primary/80 backdrop-blur-sm border border-accent/20 rounded-full text-[10px] uppercase font-bold text-accent">
-                    For {prop.listingType}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {DEMO_PROPERTIES.map((prop: any) => (
+            <Card key={prop._id} hoverEffect className="flex flex-col h-full overflow-hidden p-0">
+              <div className="h-64 relative overflow-hidden">
+                <img
+                  src={prop.images[0]}
+                  alt={prop.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute top-4 right-4 px-3 py-1 bg-primary/80 backdrop-blur-sm border border-accent/20 rounded-full text-[10px] uppercase font-bold text-accent">
+                  For {prop.listingType}
+                </div>
+              </div>
+              <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                <div className="space-y-2">
+                  <span className="text-[10px] uppercase tracking-wider text-accent font-semibold">
+                    {prop.category?.name || 'Luxury Estate'} &bull; {prop.city?.name || prop.location?.name}
+                  </span>
+                  <h3 className="text-lg font-serif font-bold text-slate-900 dark:text-white truncate">
+                    {prop.title}
+                  </h3>
+                  <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                    {prop.description}
+                  </p>
+                  {/* Specifications */}
+                  <div className="flex gap-4 text-[10px] font-semibold text-slate-400 font-mono pt-1">
+                    <span>{prop.specs.beds} Beds</span>
+                    <span>{prop.specs.baths} Baths</span>
+                    <span>{prop.specs.area.toLocaleString()} Sq Ft</span>
                   </div>
                 </div>
-                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                  <div className="space-y-2">
-                    <span className="text-[10px] uppercase tracking-wider text-accent font-semibold">
-                      {prop.category?.name || 'Luxury Estate'}
-                    </span>
-                    <h3 className="text-lg font-serif font-bold text-slate-900 dark:text-white truncate">
-                      {prop.title}
-                    </h3>
-                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
-                      {prop.description}
-                    </p>
-                  </div>
-                  <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
-                    <span className="text-base font-bold text-slate-900 dark:text-white">
-                      ${prop.price.toLocaleString()}
-                      {prop.listingType === 'rent' && <span className="text-xs font-normal"> / mo</span>}
-                    </span>
-                    <Link
-                      to={`/properties/${prop.slug}`}
-                      className="text-xs font-bold text-accent hover:underline"
-                    >
-                      View Details
-                    </Link>
-                  </div>
+                <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                  <span className="text-base font-bold text-slate-900 dark:text-white">
+                    ₹{prop.price.toLocaleString()}
+                    {prop.listingType === 'rent' && <span className="text-xs font-normal"> / mo</span>}
+                  </span>
+                  <Link
+                    to={`/properties/${prop.slug}`}
+                    className="text-xs font-bold text-accent hover:underline"
+                  >
+                    View Details
+                  </Link>
                 </div>
-              </Card>
-            ))}
-          </div>
-        )}
+              </div>
+            </Card>
+          ))}
+        </div>
       </section>
 
       {/* 3. Luxury Statistics */}
       <section className="bg-slate-900 dark:bg-primary-dark border-y border-accent/15 py-12 lg:py-20 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 text-center text-white">
           {[
-            { value: '$45B+', label: 'Total Volume Sold' },
+            { value: '₹4,500 Cr+', label: 'Total Volume Sold' },
             { value: '1,200+', label: 'Luxury Transactions' },
             { value: '150+', label: 'Global Agents' },
             { value: '25+', label: 'Years of Excellence' },
@@ -235,7 +218,7 @@ export const Home: React.FC = () => {
             Unmatched Execution.
           </h2>
           <p className="text-sm text-slate-500 leading-relaxed">
-            At Aurelia, we do not merely close deals. We curate environments. Our brokers offer decades of bespoke transaction expertise to ensure absolute discretion and asset matching.
+            At Murugan Real Estate, we do not merely close deals. We curate environments. Our brokers offer decades of bespoke transaction expertise to ensure absolute discretion and asset matching.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4">
@@ -299,11 +282,52 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* Testimonials */}
+      <section className="max-w-7xl mx-auto px-6 space-y-8">
+        <div className="space-y-2">
+          <span className="text-xs uppercase tracking-widest text-accent font-semibold">Client Feedback</span>
+          <h2 className="text-2xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white">
+            Client Testimonials
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {DEMO_TESTIMONIALS.map((test) => (
+            <Card key={test._id} hoverEffect className="space-y-4 flex flex-col justify-between p-6">
+              <div className="space-y-3">
+                {/* Stars */}
+                <div className="flex gap-1">
+                  {Array.from({ length: test.rating }).map((_, idx) => (
+                    <Star key={idx} className="w-4 h-4 text-accent" fill="currentColor" />
+                  ))}
+                </div>
+                <p className="text-xs text-slate-500 italic leading-relaxed">
+                  "{test.feedback}"
+                </p>
+              </div>
+              <div className="flex items-center gap-3 border-t border-slate-100 dark:border-slate-800/60 pt-3">
+                <img
+                  src={test.profilePhoto}
+                  alt={test.clientName}
+                  className="w-10 h-10 rounded-full object-cover border border-accent/20"
+                />
+                <div>
+                  <span className="text-xs font-bold text-slate-950 dark:text-gray-100 block">{test.clientName}</span>
+                  <span className="text-[10px] text-slate-400 capitalize">
+                    {test.clientRole} &bull; {test.clientCompany}
+                  </span>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </section>
+
       {/* 6. Latest Blogs */}
       <section className="max-w-7xl mx-auto px-6 space-y-8">
         <div className="flex items-end justify-between">
           <div className="space-y-2">
-            <span className="text-xs uppercase tracking-widest text-accent font-semibold">Aurelia Journal</span>
+            <span className="text-xs uppercase tracking-widest text-accent font-semibold">Murugan Journal</span>
             <h2 className="text-2xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white">
               Latest Insights
             </h2>
@@ -316,43 +340,39 @@ export const Home: React.FC = () => {
           </Link>
         </div>
 
-        {blogsLoading ? (
-          <Spinner />
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {blogsData?.blogs?.slice(0, 3).map((blog: any) => (
-              <Card key={blog._id} hoverEffect className="flex flex-col h-full overflow-hidden p-0">
-                <div className="h-48 relative overflow-hidden">
-                  <img
-                    src={blog.coverImage || 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80'}
-                    alt={blog.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-[10px] text-slate-400 font-medium">
-                      <Calendar className="w-3.5 h-3.5" />
-                      <span>{new Date(blog.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-                    </div>
-                    <h3 className="text-base font-serif font-bold text-slate-900 dark:text-white line-clamp-2">
-                      {blog.title}
-                    </h3>
-                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
-                      {blog.content}
-                    </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {DEMO_BLOGS.map((blog: any) => (
+            <Card key={blog._id} hoverEffect className="flex flex-col h-full overflow-hidden p-0">
+              <div className="h-48 relative overflow-hidden">
+                <img
+                  src={blog.coverImage || 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80'}
+                  alt={blog.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-[10px] text-slate-400 font-medium">
+                    <Calendar className="w-3.5 h-3.5" />
+                    <span>{new Date(blog.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                   </div>
-                  <Link
-                    to={`/blog/${blog.slug}`}
-                    className="text-xs font-bold text-accent hover:underline flex items-center gap-1"
-                  >
-                    Read Article <ChevronRight className="w-3.5 h-3.5" />
-                  </Link>
+                  <h3 className="text-base font-serif font-bold text-slate-900 dark:text-white line-clamp-2">
+                    {blog.title}
+                  </h3>
+                  <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                    {blog.content}
+                  </p>
                 </div>
-              </Card>
-            ))}
-          </div>
-        )}
+                <Link
+                  to={`/blog/${blog.slug}`}
+                  className="text-xs font-bold text-accent hover:underline flex items-center gap-1"
+                >
+                  Read Article <ChevronRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </Card>
+          ))}
+        </div>
       </section>
     </div>
   );

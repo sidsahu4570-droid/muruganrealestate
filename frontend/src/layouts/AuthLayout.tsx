@@ -14,7 +14,7 @@ export const AuthLayout: React.FC = () => {
             <Building2 className="w-6 h-6 text-accent" />
           </div>
           <h2 className="text-2xl font-bold tracking-tight font-serif text-slate-900 dark:text-gray-100">
-            AURELIA
+            MURUGAN
           </h2>
           <p className="text-xs tracking-widest uppercase text-accent font-semibold mt-1">
             ESTATE MANAGEMENT

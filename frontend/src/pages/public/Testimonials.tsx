@@ -8,6 +8,7 @@ import { Button } from '../../components/ui/Button';
 import { Spinner } from '../../components/ui/Spinner';
 import { useToast } from '../../context/ToastContext';
 import { Star, MessageSquare } from 'lucide-react';
+import { DEMO_TESTIMONIALS } from '../../services/demoData';
 
 export const Testimonials: React.FC = () => {
   const { showToast } = useToast();
@@ -28,6 +29,8 @@ export const Testimonials: React.FC = () => {
       return res.data;
     },
   });
+
+  const testimonialsList = data?.testimonials && data.testimonials.length > 0 ? data.testimonials : DEMO_TESTIMONIALS;
 
   // Mutation to add review
   const { mutate, isPending } = useMutation({
@@ -68,7 +71,7 @@ export const Testimonials: React.FC = () => {
     <div className="max-w-7xl mx-auto px-6 py-12 lg:py-20 space-y-12">
       <SEO
         title="Client Testimonials"
-        description="Read reviews and testimonials from family offices, developers, and corporate executives who have purchased properties through Aurelia."
+        description="Read reviews and testimonials from family offices, developers, and corporate executives who have purchased properties through Murugan Real Estate."
       />
 
       {/* Header */}
@@ -87,11 +90,11 @@ export const Testimonials: React.FC = () => {
         <div className="lg:col-span-2 space-y-6">
           {isLoading ? (
             <Spinner />
-          ) : data?.testimonials?.length === 0 ? (
+          ) : testimonialsList.length === 0 ? (
             <div className="text-slate-500 text-center py-10">No reviews found. Be the first to write one!</div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {data?.testimonials?.map((test: any) => (
+              {testimonialsList.map((test: any) => (
                 <Card key={test._id} hoverEffect className="space-y-4 flex flex-col justify-between">
                   <div className="space-y-3">
                     {/* Stars */}
@@ -104,11 +107,20 @@ export const Testimonials: React.FC = () => {
                       "{test.feedback}"
                     </p>
                   </div>
-                  <div className="border-t border-slate-100 dark:border-slate-800/60 pt-3">
-                    <span className="text-xs font-bold text-slate-950 dark:text-gray-100 block">{test.clientName}</span>
-                    <span className="text-[10px] text-slate-400 capitalize">
-                      {test.clientRole} &bull; {test.clientCompany}
-                    </span>
+                  <div className="flex items-center gap-3 border-t border-slate-100 dark:border-slate-800/60 pt-3">
+                    {test.profilePhoto && (
+                      <img
+                        src={test.profilePhoto}
+                        alt={test.clientName}
+                        className="w-8 h-8 rounded-full object-cover border border-accent/20"
+                      />
+                    )}
+                    <div>
+                      <span className="text-xs font-bold text-slate-950 dark:text-gray-100 block">{test.clientName}</span>
+                      <span className="text-[10px] text-slate-400 capitalize">
+                        {test.clientRole} &bull; {test.clientCompany}
+                      </span>
+                    </div>
                   </div>
                 </Card>
               ))}

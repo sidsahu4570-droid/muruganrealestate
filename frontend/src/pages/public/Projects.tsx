@@ -8,13 +8,13 @@ export const Projects: React.FC = () => {
     <div className="max-w-7xl mx-auto px-6 py-12 lg:py-20 space-y-12">
       <SEO
         title="Premium Developments"
-        description="Browse Aurelia residential compounds, luxury societies, and commercial penthouses developments projects."
+        description="Browse Murugan Real Estate residential compounds, luxury societies, and commercial penthouses developments projects."
       />
 
       <div className="max-w-3xl mx-auto text-center space-y-4">
         <span className="text-xs uppercase tracking-widest text-accent font-semibold">Developments</span>
         <h1 className="text-3xl lg:text-5xl font-serif font-bold text-slate-900 dark:text-white">
-          Aurelia Elite Societies
+          Murugan Real Estate Elite Societies
         </h1>
         <p className="text-sm text-slate-500 max-w-xl mx-auto leading-relaxed">
           Bespoke high-altitude residential compounds and skyscraper towers built to define modern architecture.
@@ -24,7 +24,7 @@ export const Projects: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {[
           {
-            title: 'Aurelia Residences',
+            title: 'Murugan Residences',
             location: 'Beverly Hills Ridge, CA',
             desc: 'A gated society of 12 luxury modern villas featuring infinite private canyons pools, structural marble columns, and dedicated concierge teams.',
             image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',

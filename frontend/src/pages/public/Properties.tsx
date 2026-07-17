@@ -11,6 +11,7 @@ import { Badge } from '../../components/ui/Badge';
 import { useWishlist } from '../../context/WishlistContext';
 import { useCompare } from '../../context/CompareContext';
 import { Modal } from '../../components/ui/Modal';
+import { DEMO_PROPERTIES } from '../../services/demoData';
 import {
   Grid,
   List,
@@ -54,6 +55,49 @@ export const Properties: React.FC = () => {
       return res.data;
     },
   });
+
+  // Client-side filtering/sorting/pagination fallback for DEMO_PROPERTIES
+  let propertiesList = data?.properties || [];
+  let totalCount = data?.total || 0;
+
+  if (propertiesList.length === 0 && !isLoading) {
+    let filtered = [...DEMO_PROPERTIES];
+    if (search) {
+      filtered = filtered.filter(p => p.title.toLowerCase().includes(search.toLowerCase()) || p.description.toLowerCase().includes(search.toLowerCase()));
+    }
+    if (city) {
+      filtered = filtered.filter(p => p.city.name.toLowerCase() === city.toLowerCase() || p.city.name.toLowerCase().replace(' ', '-') === city.toLowerCase());
+    }
+    if (category) {
+      filtered = filtered.filter(p => p.category.name.toLowerCase() === category.toLowerCase() || p.category.name.toLowerCase().replace(' ', '-') === category.toLowerCase());
+    }
+    if (listingType) {
+      filtered = filtered.filter(p => p.listingType === listingType);
+    }
+    if (beds) {
+      filtered = filtered.filter(p => p.specs.beds >= parseInt(beds));
+    }
+    if (minPrice) {
+      filtered = filtered.filter(p => p.price >= parseInt(minPrice));
+    }
+    if (maxPrice) {
+      filtered = filtered.filter(p => p.price <= parseInt(maxPrice));
+    }
+    // Sorting
+    if (sort === 'price-asc') {
+      filtered.sort((a, b) => a.price - b.price);
+    } else if (sort === 'price-desc') {
+      filtered.sort((a, b) => b.price - a.price);
+    }
+    
+    // Pagination (limit = 6)
+    const limit = 6;
+    const pageNum = parseInt(page) || 1;
+    totalCount = filtered.length;
+    propertiesList = filtered.slice((pageNum - 1) * limit, pageNum * limit);
+  }
+
+  const totalPages = Math.ceil(totalCount / 6);
 
   const updateFilters = (key: string, value: string) => {
     const newParams = new URLSearchParams(searchParams);
@@ -192,7 +236,7 @@ export const Properties: React.FC = () => {
           {/* List Toolbar (view toggle + sorting) */}
           <div className="flex items-center justify-between border-b border-slate-200/50 dark:border-slate-800/80 pb-4">
             <span className="text-xs text-slate-500 font-medium">
-              Showing {data?.properties?.length || 0} of {data?.total || 0} Luxury Listings
+              Showing {propertiesList.length} of {totalCount} Luxury Listings
             </span>
 
             <div className="flex items-center gap-4">
@@ -228,11 +272,11 @@ export const Properties: React.FC = () => {
           {/* Properties Content */}
           {isLoading ? (
             <Spinner />
-          ) : data?.properties?.length === 0 ? (
+          ) : propertiesList.length === 0 ? (
             <div className="text-center py-20 text-slate-500">No properties matching your criteria are currently active.</div>
           ) : (
             <div className={viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 gap-6' : 'flex flex-col gap-6'}>
-              {data?.properties?.map((prop: any) => {
+              {propertiesList.map((prop: any) => {
                 const wishlisted = isInWishlist(prop._id);
                 const compared = isInCompare(prop._id);
 
@@ -323,7 +367,7 @@ export const Properties: React.FC = () => {
           )}
 
           {/* Pagination Controls */}
-          {data?.pages > 1 && (
+          {totalPages > 1 && (
             <div className="flex items-center justify-center gap-3 pt-6">
               <Button
                 variant="outline"
@@ -334,12 +378,12 @@ export const Properties: React.FC = () => {
                 <ChevronLeft className="w-4 h-4" />
               </Button>
               <span className="text-xs text-slate-500 font-semibold font-mono">
-                Page {page} of {data?.pages}
+                Page {page} of {totalPages}
               </span>
               <Button
                 variant="outline"
                 size="sm"
-                disabled={Number(page) >= data?.pages}
+                disabled={Number(page) >= totalPages}
                 onClick={() => updateFilters('page', String(Number(page) + 1))}
               >
                 <ChevronRight className="w-4 h-4" />
@@ -407,7 +451,7 @@ export const Properties: React.FC = () => {
                 <img src={item.images[0]} alt={item.title} className="w-full h-full object-cover" />
               </div>
               <div className="font-serif font-bold text-slate-900 dark:text-white line-clamp-2 h-10">{item.title}</div>
-              <div className="text-accent font-bold">${item.price.toLocaleString()}</div>
+              <div className="text-accent font-bold">₹{item.price.toLocaleString()}</div>
               <div className="text-slate-600 dark:text-slate-300">{item.category?.name}</div>
               <div className="text-slate-600 dark:text-slate-300">{item.city?.name}</div>
               <div className="font-semibold">{item.specs.beds}</div>

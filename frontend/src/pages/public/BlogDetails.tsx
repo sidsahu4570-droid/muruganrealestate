@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import api from '../../services/api';
+import { DEMO_BLOGS } from '../../services/demoData';
 import { SEO } from '../../components/SEO';
 import { Spinner } from '../../components/ui/Spinner';
 import { Calendar, User, ChevronLeft } from 'lucide-react';
@@ -17,7 +18,7 @@ export const BlogDetails: React.FC = () => {
     },
   });
 
-  const blog = data?.blog;
+  const blog = data?.blog || DEMO_BLOGS.find(b => b.slug === slug);
 
   if (isLoading) {
     return (
@@ -76,7 +77,7 @@ export const BlogDetails: React.FC = () => {
           {blog.content}
         </p>
         <p>
-          Aurelia Market Advisory publishes these updates to track trends in primary zones. Always consult with registered transactions representatives before bidding.
+          Murugan Market Advisory publishes these updates to track trends in primary zones. Always consult with registered transactions representatives before bidding.
         </p>
       </div>
     </article>

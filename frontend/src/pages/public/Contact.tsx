@@ -33,7 +33,7 @@ export const Contact: React.FC = () => {
     setIsSubmitting(true);
     try {
       await api.post('/enquiries', { name, email, phone, message });
-      showToast('Thank you for contacting Aurelia. Our representative will respond shortly.', 'success');
+      showToast('Thank you for contacting Murugan Real Estate. Our representative will respond shortly.', 'success');
       setName('');
       setEmail('');
       setPhone('');
@@ -52,8 +52,8 @@ export const Contact: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-6 py-12 lg:py-20 space-y-12">
       <SEO
-        title="Contact Aurelia Concierge"
-        description="Get in touch with Aurelia Luxury Estates concierge. Submit an enquiry for off-market listings or schedule a consultation."
+        title="Contact Murugan Concierge"
+        description="Get in touch with Murugan Real Estate concierge. Submit an enquiry for off-market listings or schedule a consultation."
       />
 
       {/* Header */}
@@ -87,16 +87,16 @@ export const Contact: React.FC = () => {
           <Card className="space-y-4">
             <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white font-serif">Quick Channels</h3>
             <div className="space-y-3 text-xs">
-              <a href="tel:+18005554653" className="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-accent transition-colors">
+              <a href="tel:9892685194" className="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-accent transition-colors">
                 <Phone className="w-4 h-4 text-accent flex-shrink-0" />
-                <span>+1 (800) 555-GOLD</span>
+                <span>9892685194</span>
               </a>
-              <a href="mailto:concierge@aureliaestates.com" className="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-accent transition-colors">
+              <a href="mailto:concierge@muruganrealestate.com" className="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-accent transition-colors">
                 <Mail className="w-4 h-4 text-accent flex-shrink-0" />
-                <span>concierge@aureliaestates.com</span>
+                <span>concierge@muruganrealestate.com</span>
               </a>
               <a
-                href="https://wa.me/15557898455"
+                href="https://wa.me/9892685194"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-emerald-500 transition-colors"

@@ -7,10 +7,10 @@ export const FAQ: React.FC = () => {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   const faqs = [
-    { q: 'How does off-market access work?', a: 'Aurelia maintains relationships with family trust funds, corporate boards, and premium builders. Listings marked off-market are not published on search engines or open listings feeds; they are handled via private transactional brochures directly with vetted buyers.' },
+    { q: 'How does off-market access work?', a: 'Murugan Real Estate maintains relationships with family trust funds, corporate boards, and premium builders. Listings marked off-market are not published on search engines or open listings feeds; they are handled via private transactional brochures directly with vetted buyers.' },
     { q: 'Can international investors buy properties?', a: 'Yes. Our advisory handles all cross-border legal compliance filings, asset validation certificates, local bank coordination, and trust setups to ensure a smooth transaction for international portfolios.' },
     { q: 'What is the standard loan down payment?', a: 'For premium luxury estates, standard financial requirements mandate a down payment starting at 20%. Depending on financing structures or family office backing, this can go up to 40%.' },
-    { q: 'How do you vet properties for listing?', a: 'Aurelia listings must pass structural, design, and pricing assessments. We verify location appreciation rates, quality metrics, and clear title parameters before portfolio inclusion.' },
+    { q: 'How do you vet properties for listing?', a: 'Murugan Real Estate listings must pass structural, design, and pricing assessments. We verify location appreciation rates, quality metrics, and clear title parameters before portfolio inclusion.' },
   ];
 
   return (

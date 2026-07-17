@@ -42,7 +42,7 @@ export const AdminLayout: React.FC = () => {
   // Mock Notifications for design aesthetics
   const [notifications, setNotifications] = useState([
     { id: '1', title: 'New Lead Captured', message: 'John Smith registered from website', time: '5 mins ago', read: false },
-    { id: '2', title: 'Property Enquiry', message: 'Inquiry on Aurelia Penthouse Suite', time: '1 hour ago', read: false },
+    { id: '2', title: 'Property Enquiry', message: 'Inquiry on Murugan Penthouse Suite', time: '1 hour ago', read: false },
     { id: '3', title: 'System Notification', message: 'DB backup completed successfully', time: '1 day ago', read: true },
   ]);
 
@@ -103,7 +103,7 @@ export const AdminLayout: React.FC = () => {
               {!isCollapsed && (
                 <div className="flex flex-col">
                   <span className="font-serif font-bold text-sm tracking-widest text-slate-900 dark:text-gray-100">
-                    AURELIA
+                    MURUGAN
                   </span>
                   <span className="text-[9px] uppercase tracking-wider text-accent font-semibold">
                     ADMIN PLATFORM

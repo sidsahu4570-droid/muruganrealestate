@@ -7,7 +7,7 @@ export const Terms: React.FC = () => {
     <div className="max-w-3xl mx-auto px-6 py-12 lg:py-20 space-y-8">
       <SEO
         title="Terms of Service"
-        description="Review licensing requirements, listing accuracies disclosures, and transaction terms at Aurelia Luxury Estates."
+        description="Review licensing requirements, listing accuracies disclosures, and transaction terms at Murugan Real Estate."
       />
       <div>
         <h1 className="text-3xl font-bold font-serif text-slate-900 dark:text-white">Terms of Service</h1>
@@ -17,7 +17,7 @@ export const Terms: React.FC = () => {
       <Card className="text-xs text-slate-500 leading-relaxed space-y-4 font-sans">
         <h3 className="text-sm font-semibold text-slate-800 dark:text-white font-serif">1. Listing Accuracies</h3>
         <p>
-          Aurelia curates luxury real estates. While we perform validation inspections, specifications such as square footage, boundary lines, and amenities locations must be independently verified by buyer inspections before escrow closure.
+          Murugan Real Estate curates luxury real estates. While we perform validation inspections, specifications such as square footage, boundary lines, and amenities locations must be independently verified by buyer inspections before escrow closure.
         </p>
 
         <h3 className="text-sm font-semibold text-slate-800 dark:text-white font-serif">2. Permitted Use</h3>
@@ -27,7 +27,7 @@ export const Terms: React.FC = () => {
 
         <h3 className="text-sm font-semibold text-slate-800 dark:text-white font-serif">3. Advisory Disclaimers</h3>
         <p>
-          Material listed on this platform is for advisory purposes. Aurelia is not a direct lender, tax planner, or securities adviser.
+          Material listed on this platform is for advisory purposes. Murugan Real Estate is not a direct lender, tax planner, or securities adviser.
         </p>
       </Card>
     </div>

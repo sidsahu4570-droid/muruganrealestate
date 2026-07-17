@@ -8,7 +8,7 @@ export const About: React.FC = () => {
     <div className="space-y-16 lg:space-y-24 py-12 lg:py-20 px-6">
       <SEO
         title="About Our Agency"
-        description="Learn about Aurelia Luxury Estates, our core principles, global agent networks, and award-winning transactions advisory history."
+        description="Learn about Murugan Real Estate, our core principles, global agent networks, and award-winning transactions advisory history."
       />
 
       <div className="max-w-3xl mx-auto text-center space-y-4">
@@ -17,7 +17,7 @@ export const About: React.FC = () => {
           A Legacy of Bespoke Real Estate
         </h1>
         <p className="text-sm md:text-base text-slate-500 leading-relaxed max-w-xl mx-auto">
-          Since 1998, Aurelia has served as a trusted partner to elite investors, families, and developers in securing their high-value portfolios.
+          Since 1998, Murugan Real Estate has served as a trusted partner to elite investors, families, and developers in securing their high-value portfolios.
         </p>
       </div>
 
@@ -32,7 +32,7 @@ export const About: React.FC = () => {
         <div className="space-y-6 text-sm text-slate-500 leading-relaxed">
           <h3 className="text-xl font-bold font-serif text-slate-900 dark:text-white">Our Founding Principles</h3>
           <p>
-            Aurelia was built on a single premise: real estate is not a transaction; it is an inheritance. We understand that luxury estates are physical expressions of security and heritage. That is why our agents combine financial modeling with absolute discretion.
+            Murugan Real Estate was built on a single premise: real estate is not a transaction; it is an inheritance. We understand that luxury estates are physical expressions of security and heritage. That is why our agents combine financial modeling with absolute discretion.
           </p>
           <p>
             Whether acquiring a coastal villa in Miami, an Upper East Side duplex in Manhattan, or a commercial development hub in Silicon Valley, our clients receive white-glove advisory from initiation through title registration.

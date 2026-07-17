@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import api from '../../services/api';
+import { DEMO_PROPERTIES } from '../../services/demoData';
 import { SEO } from '../../components/SEO';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
@@ -51,7 +52,7 @@ export const PropertyDetails: React.FC = () => {
     },
   });
 
-  const property = data?.property;
+  const property = data?.property || DEMO_PROPERTIES.find(p => p.slug === slug);
 
   useEffect(() => {
     if (property) {
@@ -267,7 +268,7 @@ export const PropertyDetails: React.FC = () => {
                 <div className="space-y-1.5">
                   <div className="flex justify-between text-xs font-semibold">
                     <span className="text-slate-400">Home Price</span>
-                    <span className="text-slate-900 dark:text-white">${homePrice.toLocaleString()}</span>
+                    <span className="text-slate-900 dark:text-white">₹{homePrice.toLocaleString()}</span>
                   </div>
                   <input
                     type="range"
@@ -349,13 +350,13 @@ export const PropertyDetails: React.FC = () => {
                           <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}
                       </Pie>
-                      <Tooltip formatter={(value) => `$${value}`} />
+                      <Tooltip formatter={(value) => `₹${value}`} />
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
                 <div className="text-center space-y-1">
                   <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Estimated Monthly</span>
-                  <h4 className="text-2xl font-bold text-slate-900 dark:text-white font-mono">${mortgageValues.total.toLocaleString()}</h4>
+                  <h4 className="text-2xl font-bold text-slate-900 dark:text-white font-mono">₹{mortgageValues.total.toLocaleString()}</h4>
                 </div>
               </div>
             </div>
@@ -368,7 +369,7 @@ export const PropertyDetails: React.FC = () => {
             <div>
               <span className="text-xs text-slate-400 font-medium font-serif">Guide Price</span>
               <h2 className="text-2xl lg:text-3xl font-serif font-bold text-slate-900 dark:text-white mt-1">
-                ${property.price.toLocaleString()}
+                ₹{property.price.toLocaleString()}
                 {property.listingType === 'rent' && <span className="text-sm font-normal"> / month</span>}
               </h2>
             </div>
@@ -423,7 +424,7 @@ export const PropertyDetails: React.FC = () => {
               <div>
                 <span className="text-[9px] uppercase tracking-wider text-accent font-bold">Listing Broker</span>
                 <h4 className="text-sm font-bold text-slate-900 dark:text-white">{property.agent.name}</h4>
-                <p className="text-xs text-slate-400 font-mono mt-0.5">{property.agent.phone || '+1 (555) 789-VILLA'}</p>
+                <p className="text-xs text-slate-400 font-mono mt-0.5">{property.agent.phone || '9892685194'}</p>
               </div>
             </Card>
           )}
@@ -431,13 +432,13 @@ export const PropertyDetails: React.FC = () => {
           {/* Sticky responsive mobile actions */}
           <div className="fixed bottom-0 left-0 right-0 z-40 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 p-4 flex sm:hidden justify-between items-center gap-3">
             <a
-              href={`tel:${property.agent?.phone || '+15557898455'}`}
+              href={`tel:${property.agent?.phone || '9892685194'}`}
               className="flex-1 py-3 bg-slate-900 text-white rounded-xl text-center text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 border border-slate-800"
             >
               <Phone className="w-4 h-4" /> Call
             </a>
             <a
-              href={`https://wa.me/${property.agent?.phone?.replace(/\D/g, '') || '15557898455'}`}
+              href={`https://wa.me/${property.agent?.phone?.replace(/\D/g, '') || '9892685194'}`}
               className="flex-1 py-3 bg-emerald-600 text-white rounded-xl text-center text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2"
               target="_blank"
               rel="noreferrer"

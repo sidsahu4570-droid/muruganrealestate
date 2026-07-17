@@ -44,7 +44,7 @@ export const PublicLayout: React.FC = () => {
         email: newsletterEmail,
         message: 'Subscribed to newsletters',
       });
-      showToast('Thank you for subscribing to Aurelia Luxury newsletters!', 'success');
+      showToast('Thank you for subscribing to Murugan Real Estate newsletters!', 'success');
       setNewsletterEmail('');
     } catch (err) {
       showToast('Successfully subscribed to newsletters!', 'success');
@@ -88,10 +88,10 @@ export const PublicLayout: React.FC = () => {
           </div>
           <div className="flex flex-col">
             <span className="font-serif font-bold text-base tracking-widest text-slate-900 dark:text-gray-100">
-              AURELIA
+              MURUGAN
             </span>
             <span className="text-[9px] uppercase tracking-widest text-accent font-semibold">
-              LUXURY ESTATES
+              REAL ESTATE
             </span>
           </div>
         </Link>
@@ -192,7 +192,7 @@ export const PublicLayout: React.FC = () => {
                 <Link to="/" className="flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
                   <Building2 className="w-5 h-5 text-accent" />
                   <span className="font-serif font-bold text-sm tracking-widest text-slate-900 dark:text-gray-100">
-                    AURELIA
+                    MURUGAN
                   </span>
                 </Link>
                 <button
@@ -255,16 +255,16 @@ export const PublicLayout: React.FC = () => {
                 <Building2 className="w-5 h-5 text-accent" />
               </div>
               <span className="font-serif font-bold text-lg tracking-widest text-white">
-                AURELIA
+                MURUGAN REAL ESTATE
               </span>
             </Link>
             <p className="text-xs leading-relaxed text-slate-500">
-              Aurelia Luxury Estates curated list of high-altitude penthouses, waterfront villas, and prime commercial real estate hubs. Serving elite client investors worldwide since 1998.
+              Murugan Real Estate curated list of high-altitude penthouses, waterfront villas, and prime commercial real estate hubs. Serving elite client investors worldwide since 1998.
             </p>
             <div className="space-y-2 text-xs">
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-accent flex-shrink-0" />
-                <span className="text-slate-300">+1 (800) 555-GOLD</span>
+                <span className="text-slate-300">9892685194</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-accent flex-shrink-0" />
@@ -290,7 +290,7 @@ export const PublicLayout: React.FC = () => {
 
           {/* Col 3: Hours & Office */}
           <div className="space-y-4">
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-white font-serif">Aurelia Office</h4>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white font-serif">Murugan Real Estate Office</h4>
             <div className="space-y-3 text-xs leading-relaxed">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
@@ -330,7 +330,7 @@ export const PublicLayout: React.FC = () => {
         </div>
 
         <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-800 text-center flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
-          <p>&copy; {new Date().getFullYear()} Aurelia Luxury Estates. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Murugan Real Estate. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <Link to="/privacy" className="hover:text-accent transition-colors">Privacy Policy</Link>
             <Link to="/terms" className="hover:text-accent transition-colors">Terms of Service</Link>
